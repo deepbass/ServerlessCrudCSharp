@@ -17,7 +17,7 @@ jobs:
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.100' # SDK Version to use.
-    - run: dotnet build ServerlessCrudCSharp.sln
+    - run: dotnet build ServerlessCrudCSharp.Common/ServerlessCrudCSharp.Common.csproj
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
