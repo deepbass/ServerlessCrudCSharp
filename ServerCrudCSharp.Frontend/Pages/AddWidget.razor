@@ -1,0 +1,48 @@
+﻿@using System.Net.Http
+@page "/widgets/create"
+@inject HttpClient Http
+@inject Microsoft.AspNetCore.Components.NavigationManager navigation
+
+<h2>Create</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@widget.Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Colour" class="control-label">Colour</label>
+                <input for="Colour" class="form-control" @bind="@widget.Colour" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label">Quantity</label>
+                <input asp-for="Quantity" class="form-control" @bind="@widget.Quantity" />
+            </div>
+        </form>
+        <button @onclick="@(async () => await CreateWidget())" class="btn btn-default">Save</button>
+        <button @onclick="@cancel" class="btn">Cancel</button>
+    </div>
+</div>
+
+@code {
+
+    private Widget widget = new Widget();
+    
+    
+
+    protected async Task CreateWidget()
+    {
+        await Http.PostAsJsonAsync("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets", widget);
+        navigation.NavigateTo("/widgets");
+    }
+
+    void cancel()
+    {
+        navigation.NavigateTo("/widgets");
+
+    }
+
+}

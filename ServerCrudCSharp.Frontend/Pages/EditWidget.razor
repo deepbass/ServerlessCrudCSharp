@@ -1,0 +1,58 @@
+﻿@using System.Net.Http
+@page "/widgets/{id}"
+@inject HttpClient Http
+@inject Microsoft.AspNetCore.Components.NavigationManager navigation
+
+<h2>Edit</h2>
+<hr />
+@if (widget == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="@widget.Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Colour" class="control-label">Colour</label>
+                <input for="Colour" class="form-control" @bind="@widget.Colour" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label">Quantity</label>
+                <input asp-for="Quantity" class="form-control" @bind="@widget.Quantity" />
+            </div>
+        </form>
+        <button @onclick="@(async () => await UpdateWidget())" class="btn btn-default">Save</button>
+        <button @onclick="@cancel" class="btn">Cancel</button>
+    </div>
+</div>
+}
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    private Widget widget;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        widget = await Http.GetFromJsonAsync<Widget>("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets/" + id);
+    }
+
+    protected async Task UpdateWidget()
+    {
+        await Http.PutAsJsonAsync("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets/" + id, widget);
+    }
+
+    void cancel()
+    {
+        navigation.NavigateTo("/widgets");
+
+    }
+
+}
