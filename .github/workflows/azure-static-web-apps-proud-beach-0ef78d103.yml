@@ -18,6 +18,12 @@ jobs:
       PROJECT: 'ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj'
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.100' # SDK Version to use.
+    - run: dotnet build ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
+    - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj --output /build
+    - run: ls
     - name: Build And Deploy
       id: builddeploy
       uses: Azure/static-web-apps-deploy@v0.0.1-preview
