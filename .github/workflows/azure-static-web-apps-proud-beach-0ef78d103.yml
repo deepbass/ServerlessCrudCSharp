@@ -22,7 +22,7 @@ jobs:
       with:
         dotnet-version: '3.1.300' # SDK Version to use.
     - run: dotnet restore ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
-    - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj --output /build
+    - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
     - run: ls
     - name: Build And Deploy
       id: builddeploy
