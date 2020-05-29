@@ -20,8 +20,8 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '3.1.100' # SDK Version to use.
-    - run: dotnet build ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
+        dotnet-version: '3.1.300' # SDK Version to use.
+    - run: dotnet restore ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
     - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj --output /build
     - run: ls
     - name: Build And Deploy
