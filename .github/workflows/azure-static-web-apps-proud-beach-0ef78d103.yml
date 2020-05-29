@@ -21,7 +21,7 @@ jobs:
         dotnet-version: '3.1.300' # SDK Version to use.
     - run: dotnet restore ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
     - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj -c Release
-    - run: mv /home/runner/work/ServerlessCrudCSharp/ServerlessCrudCSharp/ServerlessCrudCSharp.Frontend/bin/Release/netstandard2.1/wwwroot /home/runner/work/ServerlessCrudCSharp/.github/workflows
+    - run: mv ServerlessCrudCSharp.Frontend/bin/Release/netstandard2.1/wwwroot .github/workflows
     - name: Build And Deploy
       id: builddeploy
       uses: Azure/static-web-apps-deploy@v0.0.1-preview
