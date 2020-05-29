@@ -14,15 +14,13 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    env:
-      PROJECT: 'ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj'
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '3.1.300' # SDK Version to use.
     - run: dotnet restore ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
-    - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj
+    - run: dotnet publish ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj -c Release
     - run: ls
     - name: Build And Deploy
       id: builddeploy
@@ -33,9 +31,8 @@ jobs:
         action: 'upload'
         ###### Repository/Build Configurations - These values can be configured to match you app requirements. ######
         # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig 
-        app_location: '/' # App source code path
+        app_location: '/home/runner/work/ServerlessCrudCSharp/ServerlessCrudCSharp/ServerlessCrudCSharp.Frontend/bin/Release/netstandard2.1/wwwroot' # App source code path
         # Api source code path - optional
-        app_artifact_location: '/bin/staticsites/ss-oryx/app-int/ServerlessCrudCSharp.Frontend/bin/Release/netstandard2.1/wwwroot' # Built app content directory - optional
         ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
