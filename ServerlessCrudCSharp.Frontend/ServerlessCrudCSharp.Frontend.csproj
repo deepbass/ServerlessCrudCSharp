@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ServerlessCrudCSharp.Backend\**" />
+    <Compile Remove="ServerlessCrudCSharp.Common\**" />
+    <Content Remove="ServerlessCrudCSharp.Backend\**" />
+    <Content Remove="ServerlessCrudCSharp.Common\**" />
+    <EmbeddedResource Remove="ServerlessCrudCSharp.Backend\**" />
+    <EmbeddedResource Remove="ServerlessCrudCSharp.Common\**" />
+    <None Remove="ServerlessCrudCSharp.Backend\**" />
+    <None Remove="ServerlessCrudCSharp.Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" PrivateAssets="all" />
@@ -14,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServerlessCrudCSharp.Common\ServerlessCrudCSharp.Common.csproj" />
+    <ProjectReference Include="ServerlessCrudCSharp.Common\ServerlessCrudCSharp.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
