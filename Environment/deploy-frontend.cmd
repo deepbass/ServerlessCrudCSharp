@@ -1,0 +1,2 @@
+call az storage blob upload-batch -s %1 -d $web --account-name %2
+call az storage blob service-properties update --account-name %2 --static-website --index-document index.html --404-document index.html
