@@ -39,7 +39,11 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './Environment'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/Environment'
 
 - task: PublishBuildArtifacts@1
   inputs:
