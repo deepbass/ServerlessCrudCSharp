@@ -41,7 +41,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: './Environment'
+    SourceFolder: '$(System.DefaultWorkingDirectory)/Environment'
     Contents: '**'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/Environment'
 
