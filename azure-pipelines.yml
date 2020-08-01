@@ -24,7 +24,7 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'dotnet publish -c Release --output $(Build.ArtifactStagingDirectory)/backend'
+    script: 'dotnet publish -c Release --output "$(Build.ArtifactStagingDirectory)/backend"'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ServerlessCrudCSharp.Backend'
 - task: DotNetCoreCLI@2
   inputs:
