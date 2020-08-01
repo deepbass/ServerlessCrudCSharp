@@ -2,7 +2,7 @@
 @page "/widgets/{id}"
 @inject HttpClient Http
 @inject Microsoft.AspNetCore.Components.NavigationManager navigation
-
+@inject Services.SettingsService SettingsService
 <h2>Edit</h2>
 <hr />
 @if (widget == null)
@@ -38,15 +38,17 @@ else
     public string id { get; set; }
 
     private Widget widget;
-    
+
     protected override async Task OnInitializedAsync()
     {
-        widget = await Http.GetFromJsonAsync<Widget>("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets/" + id);
+        var settings = await SettingsService.GetSettings();
+        widget = await Http.GetFromJsonAsync<Widget>(settings.BackendBaseUrl + "/api/widgets/" + id);
     }
 
     protected async Task UpdateWidget()
     {
-        await Http.PutAsJsonAsync("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets/" + id, widget);
+        var settings = await SettingsService.GetSettings();
+        await Http.PutAsJsonAsync(settings.BackendBaseUrl + "/api/widgets/" + id, widget);
     }
 
     void cancel()

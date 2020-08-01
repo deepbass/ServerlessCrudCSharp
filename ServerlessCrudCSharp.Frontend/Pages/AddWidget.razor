@@ -2,6 +2,7 @@
 @page "/widgets/create"
 @inject HttpClient Http
 @inject Microsoft.AspNetCore.Components.NavigationManager navigation
+@inject Services.SettingsService SettingsService
 
 <h2>Create</h2>
 <hr />
@@ -30,12 +31,13 @@
 @code {
 
     private Widget widget = new Widget();
-    
-    
+
+
 
     protected async Task CreateWidget()
     {
-        await Http.PostAsJsonAsync("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets", widget);
+        var settings = await SettingsService.GetSettings();
+        await Http.PostAsJsonAsync(settings.BackendBaseUrl + "/api/widgets", widget);
         navigation.NavigateTo("/widgets");
     }
 

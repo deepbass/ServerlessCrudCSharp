@@ -1,0 +1,3 @@
+{
+  "BackendBaseUrl": "#{BACKEND_BASE_URL}#"
+}

@@ -1,35 +1,36 @@
 @page "/widgets"
 @inject HttpClient Http
+@inject Services.SettingsService SettingsService
 
 <h1>Widgets</h1>
 
 @if (widgets == null)
 {
-<p><em>Loading...</em></p>
+    <p><em>Loading...</em></p>
 }
 else
 {
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Colour</th>
-            <th>Quantity</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var widget in widgets)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Colour</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var widget in widgets)
             {
-        <tr>
-            <td>@widget.Name</td>
-            <td>@widget.Colour</td>
-            <td>@widget.Quantity</td>
-            <td><a class="btn btn-info" href="/widgets/@widget.Id">Edit</a><button style="margin-left:5px" class="btn btn-danger" @onclick="@(async () => await DeleteWidget(widget.Id))">Delete</button></td>
-        </tr>
+                <tr>
+                    <td>@widget.Name</td>
+                    <td>@widget.Colour</td>
+                    <td>@widget.Quantity</td>
+                    <td><a class="btn btn-info" href="/widgets/@widget.Id">Edit</a><button style="margin-left:5px" class="btn btn-danger" @onclick="@(async () => await DeleteWidget(widget.Id))">Delete</button></td>
+                </tr>
             }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 }
 <a class="btn btn-info" href="/widgets/create">Create a Widget</a>
 
@@ -38,12 +39,14 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        widgets = await Http.GetFromJsonAsync<Widget[]>("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets");
+        var settings = await SettingsService.GetSettings();
+        widgets = await Http.GetFromJsonAsync<Widget[]>(settings.BackendBaseUrl + "/api/widgets");
     }
 
     protected async Task DeleteWidget(string id)
     {
-        await Http.DeleteAsync("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets/" + id);
-        widgets = await Http.GetFromJsonAsync<Widget[]>("https://serverlesscrudcsharpbackenddev.azurewebsites.net/api/widgets");
+        var settings = await SettingsService.GetSettings();
+        await Http.DeleteAsync(settings.BackendBaseUrl + "/api/widgets/" + id);
+        widgets = await Http.GetFromJsonAsync<Widget[]>(settings.BackendBaseUrl + "/api/widgets");
     }
 }
