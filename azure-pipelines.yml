@@ -26,7 +26,7 @@ steps:
   inputs:
     command: 'publish'
     arguments: '-c Release --output $(Build.ArtifactStagingDirectory)/backend'
-    projects: '**/ServerlessCrudCSharp.Backend/ServerlessCrudCSharp.Backend.csproj'
+    projects: '$(System.DefaultWorkdingDirectory)/ServerlessCrudCSharp.Backend/ServerlessCrudCSharp.Backend.csproj'
     workingDirectory: '$(System.DefaultWorkingDirectory)/ServerlessCrudCSharp.Backend'
 - task: DotNetCoreCLI@2
   inputs:
