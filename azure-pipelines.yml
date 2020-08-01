@@ -26,13 +26,13 @@ steps:
   inputs:
     command: 'publish'
     arguments: '-c Release --output $(Build.ArtifactStagingDirectory)/backend'
-    projects: '**/ServerlessCrudCSharp.Backend.csproj'
+    projects: '**/ServerlessCrudCSharp.Backend/ServerlessCrudCSharp.Backend.csproj'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     arguments: '-c Release --output $(Build.ArtifactStagingDirectory)/frontend'
-    projects: '**/ServerlessCrudCSharp.Frontend.csproj'
+    projects: '**/ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj'
 
 - task: VSTest@2
   inputs:
