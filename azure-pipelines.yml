@@ -32,7 +32,7 @@ steps:
   inputs:
     command: 'publish'
     arguments: '-c Release --output $(Build.ArtifactStagingDirectory)/frontend'
-    projects: '**/ServerlessCrudCSharp.Frontend/ServerlessCrudCSharp.Frontend.csproj'
+    projects: '**/*.csproj'
 
 - task: VSTest@2
   inputs:
