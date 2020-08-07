@@ -195,17 +195,21 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('functionAppName'), '/web')]",
+            "name": "[concat(parameters('functionAppName'),parameters('locations')[copyIndex()], '/web')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('functionAppName'))]"
+                "[resourceId('Microsoft.Web/sites', concat(parameters('functionAppName'),parameters('locations')[copyIndex()]))]"
             ],
+            "copy": {
+                "name": "functioncopy",
+                "count": "[length(parameters('locations'))]"
+            },
             "properties": {
                 "cors": {
                     "allowedOrigins": [
                         "https://functions.azure.com",
                         "https://functions-staging.azure.com",
                         "https://functions-next.azure.com",
-                        "[concat('https://',parameters('storageAccountName'),'.z33.web.core.windows.net')]"
+                        "[concat(parameters('functionAppName'),'fd', '.azurefd.net')]"
                     ],
                     "supportCredentials": true
                 }
