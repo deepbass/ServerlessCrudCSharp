@@ -19,26 +19,34 @@ namespace ServerlessCrudCSharp.Backend
         [FunctionName("PostWidget")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "widgets")] Widget widget,
-            [Table("widgets")] CloudTable cloudTable,
+            [Table("widgets", Connection = "AzureTableStorage")] CloudTable cloudTable,
             ILogger log)
         {
-            widget.Id = Guid.NewGuid().ToString();
+            widget.WidgetId = Guid.NewGuid().ToString();
             var widgetEntity = new WidgetEntity()
             {
-                RowKey = widget.Id,
-                PartitionKey = widget.Id,
-                Id = widget.Id,
+                RowKey = widget.WidgetId,
+                PartitionKey = widget.WidgetId,
+                WidgetId = widget.WidgetId,
                 Colour = widget.Colour,
                 Name = widget.Name,
                 Quantity = widget.Quantity
             };
             TableOperation insertOrMergeOperation = TableOperation.InsertOrReplace(widgetEntity);
-            var result = await cloudTable.ExecuteAsync(insertOrMergeOperation);
-            if(result.HttpStatusCode >= 400)
+            try
             {
+                var result = await cloudTable.ExecuteAsync(insertOrMergeOperation);
+                if(result.HttpStatusCode >= 400)
+                {
+                    return new BadRequestErrorMessageResult("Bad request");
+                }
+            } catch(Exception e)
+            {
+                log.LogInformation(JsonConvert.SerializeObject(e));
                 return new BadRequestErrorMessageResult("Bad request");
             }
-            return new OkObjectResult(widget.Id);
+
+            return new OkObjectResult(widget.WidgetId);
         }
     }
 }

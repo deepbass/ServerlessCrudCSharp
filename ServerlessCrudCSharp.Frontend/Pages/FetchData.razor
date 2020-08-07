@@ -26,7 +26,7 @@ else
                     <td>@widget.Name</td>
                     <td>@widget.Colour</td>
                     <td>@widget.Quantity</td>
-                    <td><a class="btn btn-info" href="/widgets/@widget.Id">Edit</a><button style="margin-left:5px" class="btn btn-danger" @onclick="@(async () => await DeleteWidget(widget.Id))">Delete</button></td>
+                    <td><a class="btn btn-info" href="/widgets/@widget.WidgetId">Edit</a><button style="margin-left:5px" class="btn btn-danger" @onclick="@(async () => await DeleteWidget(widget.WidgetId))">Delete</button></td>
                 </tr>
             }
         </tbody>

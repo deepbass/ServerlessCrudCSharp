@@ -18,7 +18,7 @@ namespace ServerlessCrudCSharp.Backend
         [FunctionName("DeleteWidget")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "widgets/{id}")] HttpRequest req,
-            [Table("widgets")] CloudTable cloudTable,
+            [Table("widgets", Connection = "AzureTableStorage")] CloudTable cloudTable,
             ILogger log,
             string id)
         {

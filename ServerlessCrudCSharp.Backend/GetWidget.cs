@@ -18,7 +18,7 @@ namespace ServerlessCrudCSharp.Backend
         [FunctionName("GetWidget")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "widgets/{id}")] HttpRequest req,
-            [Table("widgets", "{id}", "{id}")] WidgetEntity widgetEntity,
+            [Table("widgets", "{id}", "{id}", Connection = "AzureTableStorage")] WidgetEntity widgetEntity,
             ILogger log,
             string id)
         {
@@ -26,7 +26,7 @@ namespace ServerlessCrudCSharp.Backend
             {
                 return new OkObjectResult(new Widget()
                 {
-                    Id = widgetEntity.Id,
+                    WidgetId = widgetEntity.WidgetId,
                     Name = widgetEntity.Name,
                     Colour = widgetEntity.Colour,
                     Quantity = widgetEntity.Quantity

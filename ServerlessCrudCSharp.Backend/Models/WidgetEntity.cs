@@ -15,7 +15,7 @@ namespace ServerlessCrudCSharp.Backend.Models
             PartitionKey = id;
         }
 
-        public string Id { get; set; }
+        public string WidgetId { get; set; }
         public string Colour { get; set; }
         public int Quantity { get; set; }
         public string Name { get; set; }

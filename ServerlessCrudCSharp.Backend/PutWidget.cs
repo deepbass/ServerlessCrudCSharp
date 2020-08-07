@@ -19,16 +19,16 @@ namespace ServerlessCrudCSharp.Backend
         [FunctionName("PutWidget")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "widgets/{id}")] Widget widget,
-            [Table("widgets")] CloudTable cloudTable,
+            [Table("widgets", Connection = "AzureTableStorage")] CloudTable cloudTable,
             ILogger log,
             string id)
         {
-            widget.Id = id;
+            widget.WidgetId = id;
             var widgetEntity = new WidgetEntity()
             {
-                RowKey = widget.Id,
-                PartitionKey = widget.Id,
-                Id = widget.Id,
+                RowKey = widget.WidgetId,
+                PartitionKey = widget.WidgetId,
+                WidgetId = widget.WidgetId,
                 Colour = widget.Colour,
                 Name = widget.Name,
                 Quantity = widget.Quantity
@@ -39,7 +39,7 @@ namespace ServerlessCrudCSharp.Backend
             {
                 return new BadRequestErrorMessageResult("Bad request");
             }
-            return new OkObjectResult(widget.Id);
+            return new OkObjectResult(widget.WidgetId);
         }
     }
 }

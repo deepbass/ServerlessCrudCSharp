@@ -19,7 +19,7 @@ namespace ServerlessCrudCSharp.Backend
         [FunctionName("GetWidgets")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "widgets")] HttpRequest req,
-            [Table("widgets")] CloudTable cloudTable,
+            [Table("widgets", Connection = "AzureTableStorage")] CloudTable cloudTable,
             ILogger log)
         {
             TableContinuationToken token = null;
@@ -31,7 +31,7 @@ namespace ServerlessCrudCSharp.Backend
                 {
                     widgets.Add(new Widget()
                     {
-                        Id = widgetEntity.Id,
+                        WidgetId = widgetEntity.WidgetId,
                         Name = widgetEntity.Name,
                         Colour = widgetEntity.Colour,
                         Quantity = widgetEntity.Quantity
