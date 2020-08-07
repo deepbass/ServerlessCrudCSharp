@@ -154,7 +154,7 @@
             },
             "properties": {
                 "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('functionAppName'),parameters('locations')[copyIndex()]))]",
-                "name": "[parameters('functionAppName')]",
+                "name": "[concat(parameters('functionAppName'),parameters('locations')[copyIndex()])]",
                 "siteConfig": {
                     "appSettings": [
                         {
