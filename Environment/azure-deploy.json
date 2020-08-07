@@ -444,7 +444,7 @@
             },
             "name": "[parameters('cdn_profile_name')]",
             "apiVersion": "2016-04-02",
-            "location": "[resourceGroup().location]",
+            "location": "global",
             "tags": {},
             "scale": null,
             "properties": {
@@ -457,7 +457,7 @@
             "type": "Microsoft.Cdn/profiles/endpoints",
             "name": "[concat(parameters('cdn_profile_name'), '/', parameters('cdn_endpoint_name'))]",
             "apiVersion": "2016-04-02",
-            "location": "[resourceGroup().location]",
+            "location": "global",
             "tags": {},
             "scale": null,
             "properties": {
