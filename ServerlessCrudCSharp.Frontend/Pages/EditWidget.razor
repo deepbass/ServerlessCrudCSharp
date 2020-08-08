@@ -49,6 +49,7 @@ else
     {
         var settings = await SettingsService.GetSettings();
         await Http.PutAsJsonAsync(settings.BackendBaseUrl + "/api/widgets/" + id, widget);
+        navigation.NavigateTo("/widgets");
     }
 
     void cancel()
