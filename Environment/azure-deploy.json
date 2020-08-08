@@ -209,7 +209,8 @@
                         "https://functions.azure.com",
                         "https://functions-staging.azure.com",
                         "https://functions-next.azure.com",
-                        "[concat(parameters('functionAppName'),'fd', '.azurefd.net')]"
+                        "[concat('https://',parameters('functionAppName'),'fd', '.azurefd.net')]",
+                        "[concat('https://',parameters('storageAccountName'), '.azureedge.net')]"
                     ],
                     "supportCredentials": true
                 }
